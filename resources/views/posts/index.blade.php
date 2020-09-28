@@ -8,7 +8,7 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta name="csrf-token" content="MESUY3topeHgvFqsy9EcM916UWQq6khiGHM91wHy">
+    <meta name="csrf-token" content="{{csrf_token()}}">
 
 
     <title>laravel for blog</title>
@@ -18,8 +18,8 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="/css/blog.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/wangEditor.min.css">
+    <link href="{{asset('css/blog.css')}}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/wangEditor.min.css')}}">
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -84,15 +84,15 @@
                     </ol><!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <img src="http://ww1.sinaimg.cn/large/44287191gw1excbq6tb3rj21400migrz.jpg" alt="..." />
+                            <img src="{{asset('image/one.jpg')}}" alt="..." />
                             <div class="carousel-caption">...</div>
                         </div>
                         <div class="item">
-                            <img src="http://ww3.sinaimg.cn/large/44287191gw1excbq5iwm6j21400min3o.jpg" alt="..." />
+                            <img src="{{asset('image/two.jpg')}}" alt="..." />
                             <div class="carousel-caption">...</div>
                         </div>
                         <div class="item">
-                            <img src="http://ww2.sinaimg.cn/large/44287191gw1excbq4kx57j21400migs4.jpg" alt="..." />
+                            <img src="{{asset('image/three.jpg')}}" alt="..." />
                             <div class="carousel-caption">...</div>
                         </div>
                     </div>
@@ -107,72 +107,14 @@
             <div>
                 @foreach($posts as $post)
                 <div class="blog-post">
-                    <h2 class="blog-post-title"><a href="/posts/62" >{{$post['title']}}</a></h2>
-                    <p class="blog-post-meta">May 14, 2017 by <a href="/user/5">Kassandra Ankunding2</a></p>
+                    <h2 class="blog-post-title"><a href="http://127.0.0.1:8080/laravel54/public/posts/{{$post->id}}" >{{$post->title}}</a></h2>
+                    <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="/user/5">Kassandra Ankunding2</a></p>
 
-                    <p>你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好...
+                    {!! str_limit($post->content,100,'...') !!}
                     <p class="blog-post-meta">赞 0  | 评论 0</p>
                 </div>
                 @endforeach
-                <div class="blog-post">
-                    <h2 class="blog-post-title"><a href="/posts/61" >你好你好</a></h2>
-                    <p class="blog-post-meta">May 14, 2017 by <a href="/user/5">Kassandra Ankunding2</a></p>
-
-                    <p>你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好...
-                    <p class="blog-post-meta">赞 0  | 评论 0</p>
-                </div>
-                <div class="blog-post">
-                    <h2 class="blog-post-title"><a href="/posts/60" >你好你好</a></h2>
-                    <p class="blog-post-meta">May 14, 2017 by <a href="/user/5">Kassandra Ankunding2</a></p>
-
-                    <p>你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好...
-                    <p class="blog-post-meta">赞 0  | 评论 0</p>
-                </div>
-                <div class="blog-post">
-                    <h2 class="blog-post-title"><a href="/posts/59" >你好你好</a></h2>
-                    <p class="blog-post-meta">May 14, 2017 by <a href="/user/5">Kassandra Ankunding2</a></p>
-
-                    <p>你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好...
-                    <p class="blog-post-meta">赞 0  | 评论 0</p>
-                </div>
-                <div class="blog-post">
-                    <h2 class="blog-post-title"><a href="/posts/58" >自动放大舒服的撒</a></h2>
-                    <p class="blog-post-meta">May 11, 2017 by <a href="/user/5">Kassandra Ankunding2</a></p>
-
-                    我们坚持一个中国我们坚持一个中国我们坚持一个中国我们坚持一个中国我们坚持一个中国我们坚持一个中国我们...
-                    <p class="blog-post-meta">赞 0  | 评论 0</p>
-                </div>
-                <div class="blog-post">
-                    <h2 class="blog-post-title"><a href="/posts/57" >反对撒发的撒风反对撒发的撒风反对撒发的撒风</a></h2>
-                    <p class="blog-post-meta">May 7, 2017 by <a href="/user/5">Kassandra Ankunding2</a></p>
-
-                    反对撒发的撒风反对撒发的撒风反对撒发的撒风反对撒发的撒风反对撒发的撒风反对撒发的撒风反对撒发的撒风反...
-                    <p class="blog-post-meta">赞 0  | 评论 0</p>
-                </div>
-
-                <ul class="pagination">
-
-                    <li class="disabled"><span>&laquo;</span></li>
-
-
-
-
-
-                    <li class="active"><span>1</span></li>
-                    <li><a href="http://127.0.0.1:8000/posts?page=2">2</a></li>
-                    <li><a href="http://127.0.0.1:8000/posts?page=3">3</a></li>
-                    <li><a href="http://127.0.0.1:8000/posts?page=4">4</a></li>
-                    <li><a href="http://127.0.0.1:8000/posts?page=5">5</a></li>
-                    <li><a href="http://127.0.0.1:8000/posts?page=6">6</a></li>
-                    <li><a href="http://127.0.0.1:8000/posts?page=7">7</a></li>
-                    <li><a href="http://127.0.0.1:8000/posts?page=8">8</a></li>
-                    <li><a href="http://127.0.0.1:8000/posts?page=9">9</a></li>
-                    <li><a href="http://127.0.0.1:8000/posts?page=10">10</a></li>
-
-
-                    <li><a href="http://127.0.0.1:8000/posts?page=2" rel="next">&raquo;</a></li>
-                </ul>
-
+                {{$posts->links()}}
             </div><!-- /.blog-main -->
         </div>
 
@@ -230,8 +172,8 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/wangEditor.min.js"></script>
-<script src="/js/ylaravel.js"></script>
+<script type="text/javascript" src="{{asset('js/wangEditor.min.js')}}"></script>
+<script src="{{asset('js/ylaravel.js')}}"></script>
 
 </body>
 </html>

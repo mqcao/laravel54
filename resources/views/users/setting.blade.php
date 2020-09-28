@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -8,20 +7,13 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta name="csrf-token" content="4BfTBDF90Mjp8hdoie6QGDPJF2J5AgmpsC9ddFHD">
-
-
+    <meta name="csrf-token" content="RuzO8giZVe3C2PalHpxGydYXKvwqNxMwcxscznAb">
     <title>laravel for blog</title>
-
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
-
     <!-- Custom styles for this template -->
     <link href="{{asset('css/blog.css')}}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('css/wangEditor.min.css')}}">
-
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -37,10 +29,10 @@
         <form action="/posts/search" method="GET">
             <ul class="nav navbar-nav navbar-left">
                 <li>
-                    <a class="blog-nav-item " href="{{route('post.index')}}">首页</a>
+                    <a class="blog-nav-item " href="/posts">首页</a>
                 </li>
                 <li>
-                    <a class="blog-nav-item" href="{{route('post.create')}}">写文章</a>
+                    <a class="blog-nav-item" href="/posts/create">写文章</a>
                 </li>
                 <li>
                     <a class="blog-nav-item" href="/notices">通知</a>
@@ -56,7 +48,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <div>
-                        <img src="/storage/9f0b0809fd136c389c20f949baae3957/iBkvipBCiX6cHitZSdTaXydpen5PBiul7yYCc88O.jpeg" alt="" class="img-rounded" style="border-radius:500px; height: 30px">
+                        <img src="image/user.jpeg" alt="" class="img-rounded" style="border-radius:500px; height: 30px">
                         <a href="#" class="blog-nav-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kassandra Ankunding2  <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/user/5">我的主页</a></li>
@@ -76,62 +68,27 @@
 
     <div class="row">
 
-
         <div class="col-sm-8 blog-main">
-            <div class="blog-post">
-                <div style="display:inline-flex">
-                    <h2 class="blog-post-title">{{$post->title}}</h2>
-                    <a style="margin: auto"  href="http://127.0.0.1:8080/laravel54/public/posts/{{$post->id}}/edit">
-                        <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑</span>
-                    </a>
-                    <a style="margin: auto"  href="http://127.0.0.1:8080/laravel54/public/posts/{{$post->id}}/delete">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true">删除</span>
-                    </a>
+            <form class="form-horizontal" action="/user/5/setting" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_token" value="RuzO8giZVe3C2PalHpxGydYXKvwqNxMwcxscznAb">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">用户名</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" name="name" type="text" value="Kassandra Ankunding2">
+                    </div>
                 </div>
-
-                <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}}<a href="#">Kassandra Ankunding2</a></p>
-
-                <p><p>{!! $post->content !!}<img src="http://127.0.0.1:8000/storage/72c76b674ec8793fcfd6555ff371bfbd/nxC9ozLfkORmoY92q9lPsejXchVvdNO2cwHiR2Jf.jpeg" alt="63" style="max-width: 100%;">你好你好似懂非懂说</p><p><br></p></p>
-                <div>
-                    <a href="/posts/62/zan" type="button" class="btn btn-primary btn-lg">赞</a>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">头像</label>
+                    <div class="col-sm-2">
+                        <input class=" file-loading preview_input" type="file" value="用户名" style="width:72px" name="avatar">
+                        <img  class="preview_img" src="image/user.jpeg" alt="" class="img-rounded" style="border-radius:500px;">
+                    </div>
                 </div>
-            </div>
-            <div class="panel panel-default">
-                <!-- Default panel contents -->
-                <div class="panel-heading">评论</div>
+                <button type="submit" class="btn btn-default">修改</button>
+            </form>
+            <br>
 
-                <!-- List group -->
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <h5>2017-05-28 10:15:08 by Kassandra Ankunding2</h5>
-                        <div>
-                            这是第一个评论这是第一个评论这是第一个评论这是第一个评论这是第一个评论这是第一个评论这是第一个评论这是第一个评论这是第一个评论
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="panel panel-default">
-                <!-- Default panel contents -->
-                <div class="panel-heading">发表评论</div>
-
-                <!-- List group -->
-                <ul class="list-group">
-                    <form action="/posts/comment" method="post">
-                        <input type="hidden" name="_token" value="4BfTBDF90Mjp8hdoie6QGDPJF2J5AgmpsC9ddFHD">
-                        <input type="hidden" name="post_id" value="62"/>
-                        <li class="list-group-item">
-                            <textarea name="content" class="form-control" rows="10"></textarea>
-                            <button class="btn btn-default" type="submit">提交</button>
-                        </li>
-                    </form>
-
-                </ul>
-            </div>
-
-        </div><!-- /.blog-main -->
-
-
+        </div>
 
 
         <div id="sidebar" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
@@ -149,7 +106,6 @@
                         <strong><a href="/">简书网站</a></strong> 基于 Laravel5.4 构建
                     </p>
                     <div class="bdsharebuttonbox bdshare-button-style0-24" data-bd-bind="1494580268777"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_bdhome" data-cmd="bdhome" title="分享到百度新首页"></a></div>
-                    <script>window._bd_share_config={"common":{"bdSnsKey":{"tsina":"120473611"},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["tsina","renren","douban","weixin","qzone","tqq","bdhome"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tsina","renren","douban","weixin","qzone","tqq","bdhome"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
                 </div>
             </aside>
             <aside id="widget-categories" class="widget panel panel-default">
@@ -188,8 +144,10 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/wangEditor.min.js"></script>
-<script src="/js/ylaravel.js"></script>
+<script type="text/javascript" src="{{asset('js/wangEditor.min.js')}}"></script>
+<script src="{{asset('js/ylaravel.js')}}"></script>
+<script src="{{asset('js/lib/jquery-2.2.1.js')}}"></script>
+<script src="{{asset('js/lib/jquery-1.10.2.min.js')}}"></script>
 
 </body>
 </html>
