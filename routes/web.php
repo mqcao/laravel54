@@ -24,7 +24,7 @@ Route::get('/login','LoginController@index')->name('user.loginform');
 //登录行为
 Route::post('/login','LoginController@login')->name('user.login');
 //登出行为
-Route::post('/logout','LoginController@logout')->name('user.logout');
+Route::get('/logout','LoginController@logout')->name('user.logout');
 //个人设置页面
 Route::get('user/me/setting','UserController@settingIndex')->name('user.settingform');
 //个人设置行为
@@ -42,6 +42,7 @@ Route::get('posts/{post}/edit','PostController@edit')->name('post.edit');
 Route::put('posts/{post}','PostController@update')->name('post.update')->where('post','[0-9]+');//;
 //删除文章
 Route::get('posts/{post}/delete','PostController@delete')->name('post.delete');
-
 //图片上传
 Route::post('/posts/image/upload','PostController@imageUploade')->name('post.image');
+//提交评论
+Route::post('posts/{user}/comment','PostController@comment')->name('post.comment');

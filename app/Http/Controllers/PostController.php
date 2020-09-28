@@ -2,23 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 
 class PostController extends Controller
 {
     //文章列表方法
     public function index(){
-       $posts=post::orderby('created_at','desc')->paginate(5);
+       $posts=post::orderby('created_at','desc')->withCount('comments')->paginate(5);
         return view('posts.index',compact('posts'));
     }
     //文章详情方法
-    public function show(Post $post){
+    public function show(Post $post ){
         return view('posts.show',compact('post'));
     }
     //文章创建表单方法
-    public function create(){
+    public function create(Post $post){
+        $post->load('comments');
         return view('posts.create');
     }
     //文章创建方法
@@ -29,7 +32,9 @@ class PostController extends Controller
         ],[
             'title.min'=>'标题长度太短了！'
         ]);
-            $post->create(request(['title','content']));
+        $user_id=Auth::id();
+        $params=array_merge(\request(['title','content']),compact('user_id'));
+        $post=Post::create($params);
         return redirect()->route('post.index');
     }
     //文章编辑表单方法
@@ -38,6 +43,7 @@ class PostController extends Controller
     }
     //文章编辑方法
     public function update(Post $post,Request $request){
+        $this->authorize('update',$post);
         $this->validate(request(),[
             'title'=>'required|string|min:2|max:50',
             'content'=>'required'
@@ -53,6 +59,7 @@ class PostController extends Controller
     }
     //文章删除方法
     public function delete(Post $post){
+        $this->authorize('delete',$post);
         $post->delete();
         return redirect()->route('post.index');
         //return view('posts/create');
@@ -63,6 +70,23 @@ class PostController extends Controller
         $path=$request->file('wangEditorH5file')->storePublicly(md5(time()));
         return asset('storage/',$path);
     }
+    //提交评论方法
+    public function comment(Request $request,Comment $comment,Post $post){
+        //验证
+        $this->validate($request,[
+            'content'=>'required|min:1'
+        ]);
+        //逻辑
+        $comment->post_id=request('post_id');
+        $comment->user_id=Auth::id();
+        $comment->content=request('content');
+        //$post->comments()->save();
+        $comment->save();
+        return back();
+
+    }
+
+
 
 
 
