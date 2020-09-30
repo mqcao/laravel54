@@ -46,14 +46,13 @@
             <div>
                 @foreach($posts as $post)
                     <div class="blog-post">
-                        <h2 class="blog-post-title"><a
-                                    href="http://127.0.0.1:8080/laravel54/public/posts/{{$post->id}}">{{$post->title}}</a>
+                        <h2 class="blog-post-title"><a href="http://127.0.0.1:8080/laravel54/public/posts/{{$post->id}}">{{$post->title}}</a>
                         </h2>
                         <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a
                                     href="/user/5">{{$post->user->name}}</a></p>
 
                         {!! str_limit($post->content,100,'...') !!}
-                        <p class="blog-post-meta">赞 0 | 评论 {{$post->comments_count}}</p>
+                        <p class="blog-post-meta">赞 {{$post->comments_count}} | 评论 {{$post->comments_count}}</p>
                     </div>
                 @endforeach
                 {{$posts->links()}}

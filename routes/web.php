@@ -45,4 +45,8 @@ Route::get('posts/{post}/delete','PostController@delete')->name('post.delete');
 //图片上传
 Route::post('/posts/image/upload','PostController@imageUploade')->name('post.image');
 //提交评论
-Route::post('posts/{user}/comment','PostController@comment')->name('post.comment');
+Route::post('posts/{post}/comment','PostController@comment')->name('post.comment');
+//赞
+Route::get('posts/{post}/zan','postController@zan')->name('post.zan');
+//取消赞
+Route::get('posts/{post}/unzan','postController@unzan')->name('post.unzan');

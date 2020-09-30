@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 @include('layouts.header')
-
 <body>
-
 @include('layouts.nav')
 <div class="container">
-    <div class="blog-header">
+    <div class="blog-header"><h1>{{$post->user_id}}||{{Auth::id()}}||{{$post->zan(Auth::id())->exists()}}</h1>
     </div>
     <div class="row">
         <div class="col-sm-8 blog-main">
@@ -19,8 +17,7 @@
                         </a>
                     @endcan
                     @can('delete',$post)
-                        <a style="margin: auto"
-                           href="http://127.0.0.1:8080/laravel54/public/posts/{{$post->id}}/delete">
+                        <a style="margin: auto" href="http://127.0.0.1:8080/laravel54/public/posts/{{$post->id}}/delete">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true">删除</span>
                         </a>
                     @endcan
@@ -28,13 +25,19 @@
 
                 <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a
                             href="#">{{$post->user->name}}</a></p>
-
                 <p>
-                <p><img src="http://127.0.0.1:8000/storage/72c76b674ec8793fcfd6555ff371bfbd/nxC9ozLfkORmoY92q9lPsejXchVvdNO2cwHiR2Jf.jpeg"
-                            alt="63" style="max-width: 100%;">你好你好似懂非懂说</p>
+                <p>
+                    <img src="http://127.0.0.1:8000/storage/72c76b674ec8793fcfd6555ff371bfbd/nxC9ozLfkORmoY92q9lPsejXchVvdNO2cwHiR2Jf.jpeg"
+                         alt="63" style="max-width: 100%;">你好你好似懂非懂说</p>
                 <p><br></p></p>
                 <div>
-                    <a href="/posts/62/zan" type="button" class="btn btn-primary btn-lg">赞</a>
+                    @if($post->zan(Auth::id())->exists())
+                        <a href="http://127.0.0.1:8080/laravel54/public/posts/{{$post->id}}/unzan" type="button"
+                           class="btn btn-default btn-lg">取消赞</a>
+                    @else
+                        <a href="http://127.0.0.1:8080/laravel54/public/posts/{{$post->id}}/zan" type="button"
+                           class="btn btn-primary btn-lg">赞</a>
+                    @endif
                 </div>
             </div>
             <div class="panel panel-default">
@@ -73,11 +76,7 @@
             </div>
 
         </div><!-- /.blog-main -->
-
-
         <div id="sidebar" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-
-
             <aside id="widget-welcome" class="widget panel panel-default">
                 <div class="panel-heading">
                     欢迎！

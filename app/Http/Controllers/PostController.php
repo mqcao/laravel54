@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\User;
+use App\Models\Zan;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
@@ -12,12 +14,12 @@ class PostController extends Controller
 {
     //文章列表方法
     public function index(){
-       $posts=post::orderby('created_at','desc')->withCount('comments')->paginate(5);
-        return view('posts.index',compact('posts'));
+       $posts=post::orderby('created_at','desc')->withCount(['comments','zans'])->paginate(5);
+       return view('posts.index',compact('posts'));
     }
     //文章详情方法
-    public function show(Post $post ){
-        return view('posts.show',compact('post'));
+    public function show(Post $post,User $user){
+        return view('posts.show',compact('post','user'));
     }
     //文章创建表单方法
     public function create(Post $post){
@@ -39,6 +41,7 @@ class PostController extends Controller
     }
     //文章编辑表单方法
     public function edit(Post $post){
+        $this->authorize('update',$post);
         return view('posts.edit',compact('post'));
     }
     //文章编辑方法
@@ -62,7 +65,6 @@ class PostController extends Controller
         $this->authorize('delete',$post);
         $post->delete();
         return redirect()->route('post.index');
-        //return view('posts/create');
     }
     //上传图片方法
     public function imageUploade(Request $request){
@@ -83,11 +85,19 @@ class PostController extends Controller
         //$post->comments()->save();
         $comment->save();
         return back();
-
     }
-
-
-
-
-
+    //点赞
+    public function zan(Post $post){
+        $param=[
+            'user_id'=>Auth::id(),
+            'post_id'=>$post->id,
+        ];
+        Zan::firstOrCreate($param);
+        return back();
+    }
+    //取消赞
+    public function unzan(Post $post){
+        $post->zan(Auth::id())->delete();
+        return back();
+    }
 }
